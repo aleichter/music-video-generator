@@ -1,0 +1,21 @@
+# Deep learning frameworks
+--index-url https://download.pytorch.org/whl/cu121
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Use latest diffusers to fix bugs
+diffusers>=0.30.0
+transformers>=4.40.0
+accelerate>=0.20.0
+
+# Image processing and utilities
+Pillow>=9.0.0
+numpy>=1.21.0
+
+# Hugging Face ecosystem
+huggingface_hub>=0.15.0
+tokenizers>=0.13.0
+
+# Optional: Progress bars and utilities
+tqdm>=4.64.0
