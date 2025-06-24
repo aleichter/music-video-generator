@@ -1,0 +1,6 @@
+{
+  "name": "LoRA Active - Detailed Face",
+  "prompt": "anddrrew, detailed face, high resolution portrait",
+  "has_trigger": true,
+  "expected_behavior": "High-detail personalized facial features"
+}

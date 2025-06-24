@@ -1,0 +1,43 @@
+
+HOW TO USE THE TRAINED FLUX LORA
+=================================
+
+File Location:
+outputs/models/fluxgym_inspired_lora/models/fluxgym_inspired_lora.safetensors
+
+Loading Methods:
+
+1. With diffusers (recommended):
+   ```python
+   from diffusers import FluxPipeline
+   
+   pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev")
+   pipe.load_lora_weights("path/to/fluxgym_inspired_lora.safetensors")
+   pipe.to("cuda")
+   
+   # Generate with trigger word
+   image = pipe("anddrrew, professional photo", num_inference_steps=20).images[0]
+   ```
+
+2. Manual application (advanced):
+   ```python
+   # Load LoRA weights and apply to transformer manually
+   # (See test_lora_comparison.py for detailed implementation)
+   ```
+
+Usage Tips:
+- Always include "anddrrew" trigger word in prompts
+- Works best with portrait-style prompts
+- LoRA scale can be adjusted (0.5-1.5 range recommended)
+- Combine with other descriptive terms for best results
+
+Example Prompts:
+- "anddrrew, professional headshot"
+- "anddrrew, a person with brown hair, studio lighting"
+- "anddrrew, portrait photography, detailed face"
+
+Next Steps:
+1. Set up proper FLUX inference pipeline
+2. Test with various prompts and trigger words
+3. Train additional LoRAs for other subjects/styles
+4. Implement multi-LoRA combination system

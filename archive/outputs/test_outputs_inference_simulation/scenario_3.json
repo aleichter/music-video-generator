@@ -1,0 +1,6 @@
+{
+  "name": "LoRA Active - Portrait Style",
+  "prompt": "anddrrew, professional headshot, studio lighting",
+  "has_trigger": true,
+  "expected_behavior": "Personalized portrait with professional lighting"
+}

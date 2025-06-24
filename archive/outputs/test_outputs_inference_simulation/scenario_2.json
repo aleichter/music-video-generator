@@ -1,0 +1,6 @@
+{
+  "name": "LoRA Active - With Trigger",
+  "prompt": "anddrrew, a person with brown hair and brown eyes, professional photo",
+  "has_trigger": true,
+  "expected_behavior": "Personalized generation with learned facial features"
+}

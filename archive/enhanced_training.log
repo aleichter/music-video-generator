@@ -1,0 +1,654 @@
+2025-06-23 20:45:49,617 - INFO - 🚀 Initializing Enhanced FLUX LoRA Trainer
+2025-06-23 20:45:49,617 - INFO - 📱 Device: cuda
+2025-06-23 20:45:49,617 - INFO - 🔧 CUDA available: True
+2025-06-23 20:45:49,633 - INFO - 💾 GPU: NVIDIA RTX 6000 Ada Generation
+2025-06-23 20:45:49,633 - INFO - 🔋 GPU Memory: 51.0 GB
+2025-06-23 20:45:49,633 - INFO - 📥 Loading FLUX pipeline...
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:00, 14.86it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 63.82it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 48.28it/s]
+Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00, 15.00it/s]You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
+Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 11.49it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 12.27it/s]
+2025-06-23 20:45:56,173 - INFO - ✅ Pipeline loaded successfully!
+2025-06-23 20:45:56,174 - INFO - 📂 Loading dataset...
+2025-06-23 20:45:56,181 - INFO - Loaded 26 image-caption pairs
+2025-06-23 20:45:56,181 - INFO - ✅ Dataset loaded: 26 samples
+2025-06-23 20:45:56,181 - INFO - 🎓 Starting enhanced LoRA training...
+2025-06-23 20:45:56,181 - INFO - 🎯 Setting up LoRA...
+2025-06-23 20:45:56,181 - INFO - 📊 Targeting 190 modules
+2025-06-23 20:45:57,763 - INFO - 🔄 Converting LoRA parameters to bfloat16...
+2025-06-23 20:45:57,779 - INFO - ✅ LoRA setup complete!
+2025-06-23 20:45:57,779 - INFO - 🎲 Initializing LoRA B weights with small random values...
+2025-06-23 20:45:57,788 - INFO - ✅ Initialized 190 LoRA B parameters with small random values
+2025-06-23 20:45:57,788 - INFO - 📸 Capturing initial LoRA B weights...
+2025-06-23 20:45:57,793 - INFO - ✅ Captured 190 LoRA B weights for monitoring
+2025-06-23 20:45:57,793 - INFO - B weight 0: base_model.model.transformer_blocks.0.attn.to_q.lora_B.default.weight
+2025-06-23 20:45:57,793 - INFO -   Shape: torch.Size([3072, 16])
+2025-06-23 20:45:57,798 - INFO -   Mean: 0.000005, Std: 0.000999
+2025-06-23 20:45:57,808 - INFO -   Min: -0.004059, Max: 0.003998
+2025-06-23 20:45:57,808 - INFO - B weight 1: base_model.model.transformer_blocks.0.attn.to_k.lora_B.default.weight
+2025-06-23 20:45:57,808 - INFO -   Shape: torch.Size([3072, 16])
+2025-06-23 20:45:57,808 - INFO -   Mean: 0.000001, Std: 0.000999
+2025-06-23 20:45:57,808 - INFO -   Min: -0.003906, Max: 0.004242
+2025-06-23 20:45:57,808 - INFO - B weight 2: base_model.model.transformer_blocks.0.attn.to_v.lora_B.default.weight
+2025-06-23 20:45:57,808 - INFO -   Shape: torch.Size([3072, 16])
+2025-06-23 20:45:57,809 - INFO -   Mean: -0.000002, Std: 0.000999
+2025-06-23 20:45:57,809 - INFO -   Min: -0.004669, Max: 0.004578
+2025-06-23 20:45:57,814 - INFO - 📊 LoRA A parameters: 190
+2025-06-23 20:45:57,814 - INFO - 📊 LoRA B parameters: 190
+2025-06-23 20:45:57,814 - INFO - 🎯 LoRA A learning rate: 0.0001
+2025-06-23 20:45:57,814 - INFO - 🎯 LoRA B learning rate: 0.0002
+2025-06-23 20:45:57,814 - INFO - 
+📚 Epoch 1/1
+trainable params: 18,677,760 || all params: 11,920,086,080 || trainable%: 0.1567
+Epoch 1:   0%|          | 0/26 [00:00<?, ?it/s]2025-06-23 20:45:58,279 - ERROR - ❌ Error in batch 0: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:   4%|▍         | 1/26 [00:00<00:11,  2.14it/s]2025-06-23 20:45:58,503 - ERROR - ❌ Error in batch 1: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:   8%|▊         | 2/26 [00:00<00:07,  3.09it/s]2025-06-23 20:45:58,708 - ERROR - ❌ Error in batch 2: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  12%|█▏        | 3/26 [00:00<00:06,  3.71it/s]2025-06-23 20:45:58,910 - ERROR - ❌ Error in batch 3: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  15%|█▌        | 4/26 [00:01<00:05,  4.12it/s]2025-06-23 20:45:59,119 - ERROR - ❌ Error in batch 4: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  19%|█▉        | 5/26 [00:01<00:04,  4.34it/s]2025-06-23 20:45:59,323 - ERROR - ❌ Error in batch 5: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  23%|██▎       | 6/26 [00:01<00:04,  4.51it/s]2025-06-23 20:45:59,523 - ERROR - ❌ Error in batch 6: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  27%|██▋       | 7/26 [00:01<00:04,  4.66it/s]2025-06-23 20:45:59,723 - ERROR - ❌ Error in batch 7: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  31%|███       | 8/26 [00:01<00:03,  4.76it/s]2025-06-23 20:45:59,929 - ERROR - ❌ Error in batch 8: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  35%|███▍      | 9/26 [00:02<00:03,  4.80it/s]2025-06-23 20:46:00,136 - ERROR - ❌ Error in batch 9: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  38%|███▊      | 10/26 [00:02<00:03,  4.81it/s]2025-06-23 20:46:00,336 - ERROR - ❌ Error in batch 10: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  42%|████▏     | 11/26 [00:02<00:03,  4.86it/s]2025-06-23 20:46:00,542 - ERROR - ❌ Error in batch 11: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  46%|████▌     | 12/26 [00:02<00:02,  4.86it/s]2025-06-23 20:46:00,747 - ERROR - ❌ Error in batch 12: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  50%|█████     | 13/26 [00:02<00:02,  4.87it/s]2025-06-23 20:46:00,952 - ERROR - ❌ Error in batch 13: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  54%|█████▍    | 14/26 [00:03<00:02,  4.87it/s]2025-06-23 20:46:01,152 - ERROR - ❌ Error in batch 14: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  58%|█████▊    | 15/26 [00:03<00:02,  4.91it/s]2025-06-23 20:46:01,354 - ERROR - ❌ Error in batch 15: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  62%|██████▏   | 16/26 [00:03<00:02,  4.92it/s]2025-06-23 20:46:01,554 - ERROR - ❌ Error in batch 16: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  65%|██████▌   | 17/26 [00:03<00:01,  4.95it/s]2025-06-23 20:46:01,753 - ERROR - ❌ Error in batch 17: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  69%|██████▉   | 18/26 [00:03<00:01,  4.96it/s]2025-06-23 20:46:01,955 - ERROR - ❌ Error in batch 18: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  73%|███████▎  | 19/26 [00:04<00:01,  4.96it/s]2025-06-23 20:46:02,156 - ERROR - ❌ Error in batch 19: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  77%|███████▋  | 20/26 [00:04<00:01,  4.97it/s]2025-06-23 20:46:02,359 - ERROR - ❌ Error in batch 20: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  81%|████████  | 21/26 [00:04<00:01,  4.96it/s]2025-06-23 20:46:02,559 - ERROR - ❌ Error in batch 21: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  85%|████████▍ | 22/26 [00:04<00:00,  4.97it/s]2025-06-23 20:46:02,777 - ERROR - ❌ Error in batch 22: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  88%|████████▊ | 23/26 [00:04<00:00,  4.85it/s]2025-06-23 20:46:02,983 - ERROR - ❌ Error in batch 23: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  92%|█████████▏| 24/26 [00:05<00:00,  4.86it/s]2025-06-23 20:46:03,186 - ERROR - ❌ Error in batch 24: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1:  96%|█████████▌| 25/26 [00:05<00:00,  4.87it/s]2025-06-23 20:46:03,389 - ERROR - ❌ Error in batch 25: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Traceback (most recent call last):
+  File "/workspace/music-video-generator/enhanced_flux_lora_trainer.py", line 374, in train
+    model_pred = self.pipe.transformer(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 818, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_flux.py", line 445, in forward
+    hidden_states = self.x_embedder(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2048x128 and 64x3072)
+Epoch 1: 100%|██████████| 26/26 [00:05<00:00,  4.89it/s]Epoch 1: 100%|██████████| 26/26 [00:05<00:00,  4.66it/s]
+2025-06-23 20:46:03,390 - INFO - 
+🔍 Epoch 1 B weight analysis:
+2025-06-23 20:46:03,396 - INFO - B weight 0: change = 0.00000000
+2025-06-23 20:46:03,396 - INFO - B weight 1: change = 0.00000000
+2025-06-23 20:46:03,396 - INFO - B weight 2: change = 0.00000000
+2025-06-23 20:46:03,396 - INFO - Total B weight change: 0.00000000
+2025-06-23 20:46:03,396 - WARNING - ⚠️  LoRA B weights may not be updating (change: 0.00000000)
+2025-06-23 20:46:03,396 - INFO - 📊 Epoch 1 complete - Average loss: 0.0000
+2025-06-23 20:46:03,397 - INFO - 💾 Saving enhanced LoRA checkpoint for epoch 1...
+2025-06-23 20:46:03,557 - INFO - ✅ Checkpoint saved to models/anddrrew_enhanced_flux_lora/enhanced_flux_lora_epoch_1
+2025-06-23 20:46:03,557 - INFO - 🎉 Enhanced LoRA training complete!

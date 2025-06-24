@@ -1,0 +1,6 @@
+{
+  "name": "Base Model - No Trigger",
+  "prompt": "a person with brown hair and brown eyes, professional photo",
+  "has_trigger": false,
+  "expected_behavior": "Generic person generation using base FLUX weights only"
+}

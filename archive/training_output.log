@@ -1,0 +1,90 @@
+2025-06-23 20:00:53,897 - INFO - 🚀 Initializing Native FLUX LoRA Trainer
+2025-06-23 20:00:53,897 - INFO - 📥 Loading FLUX pipeline...
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 47.30it/s]
+Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:01,  5.64it/s]Loading pipeline components...:  57%|█████▋    | 4/7 [00:00<00:00, 14.85it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 71.03it/s]
+You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
+Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 13.39it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 12.83it/s]
+2025-06-23 20:01:02,678 - INFO - ✅ Pipeline loaded successfully!
+2025-06-23 20:01:02,678 - INFO - 🎯 Applying LoRA to attention layers...
+2025-06-23 20:01:02,710 - INFO - ✅ Replaced 190 attention layers with LoRA
+2025-06-23 20:01:02,710 - INFO - 📊 Total LoRA layers: 190
+2025-06-23 20:01:02,711 - INFO - 📊 Trainable LoRA parameters: 1,812,326,400
+2025-06-23 20:01:02,712 - INFO - 🔍 Verifying LoRA parameters...
+2025-06-23 20:01:02,717 - INFO - Layer 0: A mean=-0.000045, std=0.010437
+2025-06-23 20:01:02,718 - INFO - Layer 0: B mean=0.000000, std=0.000000
+2025-06-23 20:01:02,718 - INFO - Layer 1: A mean=-0.000046, std=0.010437
+2025-06-23 20:01:02,718 - INFO - Layer 1: B mean=0.000000, std=0.000000
+2025-06-23 20:01:02,718 - INFO - Layer 2: A mean=-0.000095, std=0.010437
+2025-06-23 20:01:02,718 - INFO - Layer 2: B mean=0.000000, std=0.000000
+2025-06-23 20:01:02,719 - INFO - A parameters: 147456, B parameters: 147456
+2025-06-23 20:01:02,719 - INFO - 📂 Loading dataset...
+2025-06-23 20:01:02,725 - INFO - ✅ Dataset loaded: 26 samples
+2025-06-23 20:01:02,725 - INFO - 🎓 Starting native LoRA training...
+2025-06-23 20:01:02,728 - INFO - 📊 Optimizing 760 LoRA parameters
+2025-06-23 20:01:02,731 - INFO - 
+📚 Epoch 1/1
+Epoch 1:   0%|          | 0/26 [00:00<?, ?it/s]/workspace/music-video-generator/native_flux_lora_trainer.py:104: DeprecationWarning: LANCZOS is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.LANCZOS instead.
+  image = image.resize((self.resolution, self.resolution), Image.LANCZOS)
+Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:03,410 - ERROR - ❌ Error in batch 0: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:   4%|▍         | 1/26 [00:00<00:16,  1.47it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:03,542 - ERROR - ❌ Error in batch 1: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:   8%|▊         | 2/26 [00:00<00:08,  2.80it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:03,664 - ERROR - ❌ Error in batch 2: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  12%|█▏        | 3/26 [00:00<00:05,  4.01it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:03,784 - ERROR - ❌ Error in batch 3: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  15%|█▌        | 4/26 [00:01<00:04,  5.04it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:03,910 - ERROR - ❌ Error in batch 4: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  19%|█▉        | 5/26 [00:01<00:03,  5.80it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,029 - ERROR - ❌ Error in batch 5: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  23%|██▎       | 6/26 [00:01<00:03,  6.48it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,143 - ERROR - ❌ Error in batch 6: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  27%|██▋       | 7/26 [00:01<00:02,  7.08it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,255 - ERROR - ❌ Error in batch 7: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  31%|███       | 8/26 [00:01<00:02,  7.58it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,370 - ERROR - ❌ Error in batch 8: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  35%|███▍      | 9/26 [00:01<00:02,  7.91it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,484 - ERROR - ❌ Error in batch 9: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  38%|███▊      | 10/26 [00:01<00:01,  8.14it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,597 - ERROR - ❌ Error in batch 10: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  42%|████▏     | 11/26 [00:01<00:01,  8.35it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,711 - ERROR - ❌ Error in batch 11: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  46%|████▌     | 12/26 [00:01<00:01,  8.47it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,830 - ERROR - ❌ Error in batch 12: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  50%|█████     | 13/26 [00:02<00:01,  8.45it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:04,945 - ERROR - ❌ Error in batch 13: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  54%|█████▍    | 14/26 [00:02<00:01,  8.54it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,059 - ERROR - ❌ Error in batch 14: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  58%|█████▊    | 15/26 [00:02<00:01,  8.60it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,177 - ERROR - ❌ Error in batch 15: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  62%|██████▏   | 16/26 [00:02<00:01,  8.56it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,292 - ERROR - ❌ Error in batch 16: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  65%|██████▌   | 17/26 [00:02<00:01,  8.61it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,406 - ERROR - ❌ Error in batch 17: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  69%|██████▉   | 18/26 [00:02<00:00,  8.64it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,520 - ERROR - ❌ Error in batch 18: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  73%|███████▎  | 19/26 [00:02<00:00,  8.70it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,637 - ERROR - ❌ Error in batch 19: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  77%|███████▋  | 20/26 [00:02<00:00,  8.63it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,754 - ERROR - ❌ Error in batch 20: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  81%|████████  | 21/26 [00:03<00:00,  8.61it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,873 - ERROR - ❌ Error in batch 21: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  85%|████████▍ | 22/26 [00:03<00:00,  8.55it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:05,987 - ERROR - ❌ Error in batch 22: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  88%|████████▊ | 23/26 [00:03<00:00,  8.62it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:06,173 - ERROR - ❌ Error in batch 23: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  92%|█████████▏| 24/26 [00:03<00:00,  7.30it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:06,286 - ERROR - ❌ Error in batch 24: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1:  96%|█████████▌| 25/26 [00:03<00:00,  7.71it/s]Passing `img_ids` 3d torch.Tensor is deprecated.Please remove the batch dimension and pass it as a 2d torch Tensor
+2025-06-23 20:01:06,404 - ERROR - ❌ Error in batch 25: The size of tensor a (1536) must match the size of tensor b (4608) at non-singleton dimension 2
+Epoch 1: 100%|██████████| 26/26 [00:03<00:00,  7.92it/s]Epoch 1: 100%|██████████| 26/26 [00:03<00:00,  7.08it/s]
+2025-06-23 20:01:06,405 - INFO - 
+🔍 Checking LoRA B weight changes after epoch 1:
+2025-06-23 20:01:06,407 - INFO - Layer 0: B weight change = 0.00000000
+2025-06-23 20:01:06,407 - INFO - Layer 1: B weight change = 0.00000000
+2025-06-23 20:01:06,408 - INFO - Layer 2: B weight change = 0.00000000
+2025-06-23 20:01:06,408 - WARNING - ⚠️  LoRA B weights may not be updating
+2025-06-23 20:01:06,408 - INFO - 📊 Epoch 1 complete - Average loss: 0.0000
+2025-06-23 20:01:06,408 - INFO - 🎉 Native LoRA training complete!
