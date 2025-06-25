@@ -1,0 +1,24 @@
+{
+  "model_name": "anddrrew_v2",
+  "trigger_word": "anddrrew",
+  "dataset_path": "dataset/anddrrew",
+  "training_time_minutes": 33.45,
+  "timestamp": "2025-06-24T18:24:51.224218",
+  "config": {
+    "model_name": "black-forest-labs/FLUX.1-dev",
+    "learning_rate": 0.0001,
+    "train_batch_size": 1,
+    "max_train_epochs": 6,
+    "save_every_n_epochs": 2,
+    "mixed_precision": "bf16",
+    "gradient_checkpointing": true,
+    "network_module": "networks.lora_flux",
+    "network_dim": 16,
+    "network_alpha": 16,
+    "optimizer_type": "adamw8bit",
+    "lr_scheduler": "cosine",
+    "lr_warmup_steps": 100,
+    "clip_skip": 1,
+    "max_grad_norm": 1.0
+  }
+}

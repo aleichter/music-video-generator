@@ -1,113 +1,0 @@
-2025-06-23 19:44:55,228 - INFO - 🚀 Initializing DEBUGGED FLUX LoRA Trainer
-2025-06-23 19:44:55,229 - INFO - Device: cuda
-2025-06-23 19:44:55,229 - INFO - Args: {'model_name': 'black-forest-labs/FLUX.1-dev', 'dataset_path': './dataset/anddrrew', 'output_dir': './models/anddrrew_debugged_flux_lora', 'resolution': 512, 'batch_size': 1, 'num_epochs': 2, 'learning_rate': 0.0001}
-2025-06-23 19:44:55,229 - INFO - 📥 Loading FLUX pipeline...
-Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
-Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:02,  2.99it/s]
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 49.69it/s]
-Loading pipeline components...:  43%|████▎     | 3/7 [00:00<00:00,  7.82it/s]
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 61.74it/s]
-Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00, 10.86it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 10.83it/s]
-2025-06-23 19:45:04,993 - INFO - ✅ Pipeline loaded successfully!
-2025-06-23 19:45:04,993 - INFO - 🎯 Setting up LoRA...
-2025-06-23 19:45:04,994 - INFO - 🎯 Targeting 190 modules
-2025-06-23 19:45:04,997 - INFO - ✅ Found 190 existing target modules
-2025-06-23 19:45:04,997 - INFO - 📊 LoRA Config: r=16, alpha=32
-2025-06-23 19:45:06,971 - INFO - 🔍 Verifying LoRA parameters...
-2025-06-23 19:45:06,975 - INFO - Found 190 LoRA A parameters
-2025-06-23 19:45:06,975 - INFO - Found 190 LoRA B parameters
-2025-06-23 19:45:06,981 - INFO - LoRA A base_model.model.transformer_blocks.0.attn.to_q.lora_A.default.weight: mean=0.000095, std=0.010399, requires_grad=True
-2025-06-23 19:45:06,981 - INFO - LoRA A base_model.model.transformer_blocks.0.attn.to_k.lora_A.default.weight: mean=-0.000026, std=0.010474, requires_grad=True
-2025-06-23 19:45:06,981 - INFO - LoRA A base_model.model.transformer_blocks.0.attn.to_v.lora_A.default.weight: mean=-0.000019, std=0.010426, requires_grad=True
-2025-06-23 19:45:06,981 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_q.lora_B.default.weight: mean=0.000000, std=0.000000, requires_grad=True
-2025-06-23 19:45:06,981 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_k.lora_B.default.weight: mean=0.000000, std=0.000000, requires_grad=True
-2025-06-23 19:45:06,981 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_v.lora_B.default.weight: mean=0.000000, std=0.000000, requires_grad=True
-2025-06-23 19:45:06,992 - INFO - ✅ LoRA B parameters initialized to zero - this is correct for LoRA
-2025-06-23 19:45:06,993 - INFO - ✅ LoRA setup complete!
-2025-06-23 19:45:06,993 - INFO - 📂 Loading dataset...
-2025-06-23 19:45:06,998 - INFO - Loaded 26 samples from dataset
-2025-06-23 19:45:06,998 - INFO - ✅ Dataset loaded: 26 samples
-2025-06-23 19:45:06,998 - INFO - 🎓 Starting training...
-2025-06-23 19:45:07,013 - INFO - 
-📚 Epoch 1/2
-Epoch 1:   0%|          | 0/26 [00:00<?, ?it/s]/workspace/music-video-generator/debugged_flux_lora_trainer.py:81: DeprecationWarning: LANCZOS is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.LANCZOS instead.
-  image = image.resize((self.resolution, self.resolution), Image.LANCZOS)
-2025-06-23 19:45:07,590 - ERROR - ❌ Error in batch 0: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:   4%|▍         | 1/26 [00:00<00:14,  1.74it/s]2025-06-23 19:45:07,727 - ERROR - ❌ Error in batch 1: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:   8%|▊         | 2/26 [00:00<00:07,  3.15it/s]2025-06-23 19:45:07,840 - ERROR - ❌ Error in batch 2: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  12%|█▏        | 3/26 [00:00<00:05,  4.46it/s]2025-06-23 19:45:07,947 - ERROR - ❌ Error in batch 3: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  15%|█▌        | 4/26 [00:00<00:03,  5.62it/s]2025-06-23 19:45:08,056 - ERROR - ❌ Error in batch 4: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  19%|█▉        | 5/26 [00:01<00:03,  6.53it/s]2025-06-23 19:45:08,165 - ERROR - ❌ Error in batch 5: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  23%|██▎       | 6/26 [00:01<00:02,  7.24it/s]2025-06-23 19:45:08,274 - ERROR - ❌ Error in batch 6: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  27%|██▋       | 7/26 [00:01<00:02,  7.77it/s]2025-06-23 19:45:08,382 - ERROR - ❌ Error in batch 7: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  31%|███       | 8/26 [00:01<00:02,  8.20it/s]2025-06-23 19:45:08,490 - ERROR - ❌ Error in batch 8: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  35%|███▍      | 9/26 [00:01<00:02,  8.49it/s]2025-06-23 19:45:08,602 - ERROR - ❌ Error in batch 9: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  38%|███▊      | 10/26 [00:01<00:01,  8.64it/s]2025-06-23 19:45:08,718 - ERROR - ❌ Error in batch 10: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  42%|████▏     | 11/26 [00:01<00:01,  8.63it/s]2025-06-23 19:45:08,826 - ERROR - ❌ Error in batch 11: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  46%|████▌     | 12/26 [00:01<00:01,  8.80it/s]2025-06-23 19:45:08,936 - ERROR - ❌ Error in batch 12: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  50%|█████     | 13/26 [00:01<00:01,  8.91it/s]2025-06-23 19:45:09,046 - ERROR - ❌ Error in batch 13: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  54%|█████▍    | 14/26 [00:02<00:01,  8.96it/s]2025-06-23 19:45:09,155 - ERROR - ❌ Error in batch 14: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  58%|█████▊    | 15/26 [00:02<00:01,  9.01it/s]2025-06-23 19:45:09,266 - ERROR - ❌ Error in batch 15: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  62%|██████▏   | 16/26 [00:02<00:01,  9.00it/s]2025-06-23 19:45:09,380 - ERROR - ❌ Error in batch 16: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  65%|██████▌   | 17/26 [00:02<00:01,  8.93it/s]2025-06-23 19:45:09,491 - ERROR - ❌ Error in batch 17: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  69%|██████▉   | 18/26 [00:02<00:00,  8.95it/s]2025-06-23 19:45:09,600 - ERROR - ❌ Error in batch 18: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  73%|███████▎  | 19/26 [00:02<00:00,  9.04it/s]2025-06-23 19:45:09,708 - ERROR - ❌ Error in batch 19: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  77%|███████▋  | 20/26 [00:02<00:00,  9.10it/s]2025-06-23 19:45:09,819 - ERROR - ❌ Error in batch 20: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  81%|████████  | 21/26 [00:02<00:00,  9.06it/s]2025-06-23 19:45:09,927 - ERROR - ❌ Error in batch 21: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  85%|████████▍ | 22/26 [00:02<00:00,  9.13it/s]2025-06-23 19:45:10,036 - ERROR - ❌ Error in batch 22: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  88%|████████▊ | 23/26 [00:03<00:00,  9.15it/s]2025-06-23 19:45:10,149 - ERROR - ❌ Error in batch 23: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  92%|█████████▏| 24/26 [00:03<00:00,  9.05it/s]2025-06-23 19:45:10,258 - ERROR - ❌ Error in batch 24: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1:  96%|█████████▌| 25/26 [00:03<00:00,  9.08it/s]2025-06-23 19:45:10,368 - ERROR - ❌ Error in batch 25: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 1: 100%|██████████| 26/26 [00:03<00:00,  9.08it/s]Epoch 1: 100%|██████████| 26/26 [00:03<00:00,  7.75it/s]
-2025-06-23 19:45:10,369 - INFO - 
-🔍 Checking parameter changes after epoch 1:
-2025-06-23 19:45:10,369 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_q.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:10,369 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_k.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:10,370 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_v.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:10,370 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_out.0.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:10,370 - INFO - LoRA B base_model.model.transformer_blocks.1.attn.to_q.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:10,370 - WARNING - ❌ LoRA B parameters NOT updating - major issue!
-2025-06-23 19:45:10,370 - INFO - 📊 Epoch 1 complete - Average loss: 0.0000
-2025-06-23 19:45:10,371 - INFO - 💾 Saving checkpoint for epoch 1...
-2025-06-23 19:45:10,617 - INFO - ✅ Checkpoint saved to models/anddrrew_debugged_flux_lora/debugged_flux_lora_epoch_1_peft
-2025-06-23 19:45:10,617 - INFO - 
-📚 Epoch 2/2
-Epoch 2:   0%|          | 0/26 [00:00<?, ?it/s]2025-06-23 19:45:10,752 - ERROR - ❌ Error in batch 0: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:   4%|▍         | 1/26 [00:00<00:03,  7.45it/s]2025-06-23 19:45:10,866 - ERROR - ❌ Error in batch 1: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:   8%|▊         | 2/26 [00:00<00:02,  8.19it/s]2025-06-23 19:45:10,977 - ERROR - ❌ Error in batch 2: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  12%|█▏        | 3/26 [00:00<00:02,  8.54it/s]2025-06-23 19:45:11,087 - ERROR - ❌ Error in batch 3: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  15%|█▌        | 4/26 [00:00<00:02,  8.75it/s]2025-06-23 19:45:11,201 - ERROR - ❌ Error in batch 4: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  19%|█▉        | 5/26 [00:00<00:02,  8.77it/s]2025-06-23 19:45:11,309 - ERROR - ❌ Error in batch 5: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  23%|██▎       | 6/26 [00:00<00:02,  8.90it/s]2025-06-23 19:45:11,421 - ERROR - ❌ Error in batch 6: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  27%|██▋       | 7/26 [00:00<00:02,  8.92it/s]2025-06-23 19:45:11,529 - ERROR - ❌ Error in batch 7: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  31%|███       | 8/26 [00:00<00:01,  9.04it/s]2025-06-23 19:45:11,637 - ERROR - ❌ Error in batch 8: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  35%|███▍      | 9/26 [00:01<00:01,  9.11it/s]2025-06-23 19:45:11,746 - ERROR - ❌ Error in batch 9: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  38%|███▊      | 10/26 [00:01<00:01,  9.12it/s]2025-06-23 19:45:11,856 - ERROR - ❌ Error in batch 10: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  42%|████▏     | 11/26 [00:01<00:01,  9.12it/s]2025-06-23 19:45:11,965 - ERROR - ❌ Error in batch 11: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  46%|████▌     | 12/26 [00:01<00:01,  9.11it/s]2025-06-23 19:45:12,081 - ERROR - ❌ Error in batch 12: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  50%|█████     | 13/26 [00:01<00:01,  8.96it/s]2025-06-23 19:45:12,190 - ERROR - ❌ Error in batch 13: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  54%|█████▍    | 14/26 [00:01<00:01,  9.03it/s]2025-06-23 19:45:12,303 - ERROR - ❌ Error in batch 14: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  58%|█████▊    | 15/26 [00:01<00:01,  8.97it/s]2025-06-23 19:45:12,412 - ERROR - ❌ Error in batch 15: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  62%|██████▏   | 16/26 [00:01<00:01,  9.04it/s]2025-06-23 19:45:12,519 - ERROR - ❌ Error in batch 16: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  65%|██████▌   | 17/26 [00:01<00:00,  9.13it/s]2025-06-23 19:45:12,628 - ERROR - ❌ Error in batch 17: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  69%|██████▉   | 18/26 [00:02<00:00,  9.15it/s]2025-06-23 19:45:12,739 - ERROR - ❌ Error in batch 18: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  73%|███████▎  | 19/26 [00:02<00:00,  9.10it/s]2025-06-23 19:45:12,847 - ERROR - ❌ Error in batch 19: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  77%|███████▋  | 20/26 [00:02<00:00,  9.15it/s]2025-06-23 19:45:12,958 - ERROR - ❌ Error in batch 20: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  81%|████████  | 21/26 [00:02<00:00,  9.09it/s]2025-06-23 19:45:13,067 - ERROR - ❌ Error in batch 21: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  85%|████████▍ | 22/26 [00:02<00:00,  9.12it/s]2025-06-23 19:45:13,176 - ERROR - ❌ Error in batch 22: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  88%|████████▊ | 23/26 [00:02<00:00,  9.15it/s]2025-06-23 19:45:13,284 - ERROR - ❌ Error in batch 23: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  92%|█████████▏| 24/26 [00:02<00:00,  9.17it/s]2025-06-23 19:45:13,392 - ERROR - ❌ Error in batch 24: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2:  96%|█████████▌| 25/26 [00:02<00:00,  9.20it/s]2025-06-23 19:45:13,500 - ERROR - ❌ Error in batch 25: FluxTransformer2DModel.forward() got an unexpected keyword argument 'input_ids'
-Epoch 2: 100%|██████████| 26/26 [00:02<00:00,  9.21it/s]Epoch 2: 100%|██████████| 26/26 [00:02<00:00,  9.02it/s]
-2025-06-23 19:45:13,501 - INFO - 
-🔍 Checking parameter changes after epoch 2:
-2025-06-23 19:45:13,501 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_q.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:13,501 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_k.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:13,502 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_v.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:13,502 - INFO - LoRA B base_model.model.transformer_blocks.0.attn.to_out.0.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:13,502 - INFO - LoRA B base_model.model.transformer_blocks.1.attn.to_q.lora_B.default.weight: change = 0.00000000
-2025-06-23 19:45:13,502 - WARNING - ❌ LoRA B parameters NOT updating - major issue!
-2025-06-23 19:45:13,502 - INFO - 📊 Epoch 2 complete - Average loss: 0.0000
-2025-06-23 19:45:13,503 - INFO - 💾 Saving checkpoint for epoch 2...
-2025-06-23 19:45:13,777 - INFO - ✅ Checkpoint saved to models/anddrrew_debugged_flux_lora/debugged_flux_lora_epoch_2_peft
-2025-06-23 19:45:13,777 - INFO - 🎉 Training complete!

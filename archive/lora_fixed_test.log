@@ -1,46 +1,0 @@
-Test outputs will be saved to: test_outputs_fixed/
-Loading FLUX pipeline...
-Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 46.53it/s]
-Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:01,  5.02it/s]
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 72.72it/s]
-Loading pipeline components...:  57%|█████▋    | 4/7 [00:00<00:00, 13.90it/s]You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
-Loading pipeline components...:  86%|████████▌ | 6/7 [00:00<00:00, 10.70it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 12.22it/s]
-
-Test prompt: 'a person with brown hair and brown eyes, professional photo'
-Seed: 42
-
-=== Generating with BASE MODEL ===
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:12,  1.50it/s] 10%|█         | 2/20 [00:01<00:10,  1.78it/s] 15%|█▌        | 3/20 [00:01<00:10,  1.66it/s] 20%|██        | 4/20 [00:02<00:09,  1.60it/s] 25%|██▌       | 5/20 [00:03<00:09,  1.57it/s] 30%|███       | 6/20 [00:03<00:09,  1.56it/s] 35%|███▌      | 7/20 [00:04<00:08,  1.54it/s] 40%|████      | 8/20 [00:05<00:07,  1.54it/s] 45%|████▌     | 9/20 [00:05<00:07,  1.53it/s] 50%|█████     | 10/20 [00:06<00:06,  1.53it/s] 55%|█████▌    | 11/20 [00:07<00:05,  1.52it/s] 60%|██████    | 12/20 [00:07<00:05,  1.52it/s] 65%|██████▌   | 13/20 [00:08<00:04,  1.52it/s] 70%|███████   | 14/20 [00:09<00:03,  1.52it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.51it/s] 80%|████████  | 16/20 [00:10<00:02,  1.51it/s] 85%|████████▌ | 17/20 [00:11<00:01,  1.51it/s] 90%|█████████ | 18/20 [00:11<00:01,  1.51it/s] 95%|█████████▌| 19/20 [00:12<00:00,  1.51it/s]100%|██████████| 20/20 [00:13<00:00,  1.51it/s]100%|██████████| 20/20 [00:13<00:00,  1.53it/s]
-No LoRA keys associated to FluxTransformer2DModel found with the prefix='transformer'. This is safe to ignore if LoRA state dict didn't originally have any FluxTransformer2DModel related params. You can also try specifying `prefix=None` to resolve the warning. Otherwise, open an issue if you think it's unexpected: https://github.com/huggingface/diffusers/issues/new
-No LoRA keys associated to CLIPTextModel found with the prefix='text_encoder'. This is safe to ignore if LoRA state dict didn't originally have any CLIPTextModel related params. You can also try specifying `prefix=None` to resolve the warning. Otherwise, open an issue if you think it's unexpected: https://github.com/huggingface/diffusers/issues/new
-No LoRA keys associated to FluxTransformer2DModel found with the prefix='transformer'. This is safe to ignore if LoRA state dict didn't originally have any FluxTransformer2DModel related params. You can also try specifying `prefix=None` to resolve the warning. Otherwise, open an issue if you think it's unexpected: https://github.com/huggingface/diffusers/issues/new
-No LoRA keys associated to CLIPTextModel found with the prefix='text_encoder'. This is safe to ignore if LoRA state dict didn't originally have any CLIPTextModel related params. You can also try specifying `prefix=None` to resolve the warning. Otherwise, open an issue if you think it's unexpected: https://github.com/huggingface/diffusers/issues/new
-Base model image saved as 'test_outputs_fixed/test_base_model.png'
-
-=== Loading LoRA with correct prefix ===
-Trying with custom adapter name...
-Checking loaded LoRA adapters...
-Method 1 failed: No adapter loaded. Please load an adapter first.
-
-Trying with prefix=None...
-Mapping: base_model.model.single_transformer_blocks.0.attn.to_k.lora_A.weight -> single_transformer_blocks.0.attn.to_k.lora_A.weight
-Mapping: base_model.model.single_transformer_blocks.0.attn.to_k.lora_B.weight -> single_transformer_blocks.0.attn.to_k.lora_B.weight
-Mapping: base_model.model.single_transformer_blocks.0.attn.to_q.lora_A.weight -> single_transformer_blocks.0.attn.to_q.lora_A.weight
-Mapping: base_model.model.single_transformer_blocks.0.attn.to_q.lora_B.weight -> single_transformer_blocks.0.attn.to_q.lora_B.weight
-Mapping: base_model.model.single_transformer_blocks.0.attn.to_v.lora_A.weight -> single_transformer_blocks.0.attn.to_v.lora_A.weight
-Mapping: base_model.model.single_transformer_blocks.0.attn.to_v.lora_B.weight -> single_transformer_blocks.0.attn.to_v.lora_B.weight
-Processed 6 parameters with corrected prefixes
-Manual LoRA loading and fusion successful!
-
-=== Generating with LoRA (MERGED) ===
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:12,  1.52it/s] 10%|█         | 2/20 [00:01<00:09,  1.87it/s] 15%|█▌        | 3/20 [00:01<00:10,  1.68it/s] 20%|██        | 4/20 [00:02<00:09,  1.60it/s] 25%|██▌       | 5/20 [00:03<00:09,  1.56it/s] 30%|███       | 6/20 [00:03<00:09,  1.54it/s] 35%|███▌      | 7/20 [00:04<00:08,  1.52it/s] 40%|████      | 8/20 [00:05<00:07,  1.51it/s] 45%|████▌     | 9/20 [00:05<00:07,  1.50it/s] 50%|█████     | 10/20 [00:06<00:06,  1.50it/s] 55%|█████▌    | 11/20 [00:07<00:06,  1.49it/s] 60%|██████    | 12/20 [00:07<00:05,  1.49it/s] 65%|██████▌   | 13/20 [00:08<00:04,  1.49it/s] 70%|███████   | 14/20 [00:09<00:04,  1.49it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.49it/s] 80%|████████  | 16/20 [00:10<00:02,  1.48it/s] 85%|████████▌ | 17/20 [00:11<00:02,  1.48it/s] 90%|█████████ | 18/20 [00:11<00:01,  1.48it/s] 95%|█████████▌| 19/20 [00:12<00:00,  1.48it/s]100%|██████████| 20/20 [00:13<00:00,  1.48it/s]100%|██████████| 20/20 [00:13<00:00,  1.51it/s]
-LoRA image saved as 'test_outputs_fixed/test_lora_fixed.png'
-
-=== Creating comparison ===
-Comparison saved as 'test_outputs_fixed/test_comparison_fixed.png'
-
-Pixel difference (mean absolute): 0.000000
-❌ Images are nearly identical - LoRA has no effect
-
-=== Test Complete ===

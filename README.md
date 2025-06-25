@@ -1,33 +1,32 @@
-# Music Video Generator
+# FLUX LoRA Training System
 
-A hierarchical AI-powered music video generation application built with FLUX diffusion models and LoRA (Low-Rank Adaptation) training for custom character generation.
+A production-ready system for training and generating images with FLUX LoRA models, designed for consistent character generation in creative applications.
 
-## 🎯 Project Goal
+## 🎯 Overview
 
-Create an advanced music video generator that structures content in a hierarchy of **Scenes** and **Shots**:
+This system provides a robust, enterprise-grade pipeline for:
+- **Custom LoRA Training**: Train character-specific LoRA models with FLUX.1-dev
+- **High-Quality Image Generation**: Generate consistent character images using trained LoRAs
+- **Production Workflow**: Complete training, validation, and deployment pipeline
+- **Music Video Applications**: Originally designed for consistent character generation in music videos
 
-- **Scenes**: Define the overall environment and mood (e.g., "outside on a beach, cold and overcast")
-- **Shots**: Describe specific starting images and action sequences for video motion within scenes
-- **Character Training**: Train custom LoRA models for consistent character appearance across scenes
-
-## 🏗️ Project Architecture
+## 🏗️ System Architecture
 
 ### Core Components
 
-1. **Scene Management**: Environmental context and mood definition
-2. **Shot Generation**: Individual video sequences with motion descriptions
-3. **Character Training**: Custom LoRA training for consistent character representation
-4. **FLUX Integration**: State-of-the-art diffusion model for high-quality image generation
+1. **FluxLoRATrainer**: Professional LoRA training with Kohya's sd-scripts
+2. **FluxImageGenerator**: High-quality image generation with LoRA support  
+3. **MusicVideoGenerator**: Orchestrator and CLI interface
+4. **Production Pipeline**: Automated training, testing, and deployment
 
-### Current Development Status
+### Production Features
 
-⚠️ **Early Development Phase** - Currently focused on foundational components:
-
-- ✅ FLUX model integration and optimization
-- ✅ Multiple LoRA training strategies and implementations
-- ✅ Image caption generation and dataset preparation
-- ✅ Basic image generation with LoRA support
-- 🚧 Scene/Shot hierarchy system (planned)
+- ✅ **Robust Training**: Conservative settings to prevent noise/overfitting
+- ✅ **Model Management**: Centralized HuggingFace cache with automatic downloads
+- ✅ **Quality Validation**: Automated testing of LoRA checkpoints
+- ✅ **Live Monitoring**: Real-time training progress with detailed logging
+- ✅ **Error Recovery**: Comprehensive error handling and recovery mechanisms
+- ✅ **Documentation**: Complete deployment guides and checklists
 - 🚧 Video motion generation (planned)
 - 🚧 Music synchronization (planned)
 
