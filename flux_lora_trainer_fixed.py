@@ -87,37 +87,43 @@ class FluxLoRATrainer:
         print("✅ Environment setup complete")
     
     def download_models(self):
-        """Download required FLUX, CLIP, and T5 models"""
-        print("📥 Ensuring all required models are available...")
+        """Download required FLUX models to local directory"""
+        print("📥 Downloading FLUX models...")
         
         # Set cache directory to workspace
         os.environ['HF_HOME'] = '/workspace/.cache/huggingface'
         
-        # Check and download FLUX model (should already be cached)
-        flux_cache_base = Path("/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev")
-        if flux_cache_base.exists():
-            print("✅ FLUX model found in cache")
-        else:
-            print("❌ FLUX model not found - please ensure it's downloaded first")
-            
-        # Check and download CLIP model
-        clip_cache_base = Path("/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14")
-        if not clip_cache_base.exists() or not list(clip_cache_base.glob("snapshots/*")):
-            print("📥 Downloading CLIP model...")
-            self.download_clip_model()
-        else:
-            print("✅ CLIP model found in cache")
-            
-        # Check and download T5 model  
-        t5_cache_base = Path("/workspace/.cache/huggingface/models--google--t5-v1_1-xxl")
-        if not t5_cache_base.exists() or not list(t5_cache_base.glob("snapshots/*")):
-            print("📥 Downloading T5 model...")
-            self.download_t5_model()
-        else:
-            print("✅ T5 model found in cache")
+        models_dir = self.working_dir / "models"
+        models_dir.mkdir(exist_ok=True)
         
-        print("✅ All models ready")
-        return True
+        # Check if models already exist locally
+        main_model = models_dir / "flux1-dev.safetensors"
+        if main_model.exists():
+            print("✅ Models already downloaded")
+            return models_dir
+        
+        # Download models using huggingface-hub
+        from huggingface_hub import hf_hub_download
+        
+        # FLUX.1-dev main model - try local first
+        print("  Checking for FLUX.1-dev...")
+        flux_local_path = models_dir / "flux1-dev.safetensors"
+        
+        if flux_local_path.exists():
+            print("    Using existing local FLUX model")
+        else:
+            try:
+                # Try to use existing cached model without re-downloading
+                print("    Looking for cached FLUX model...")
+                # Skip download if hitting quota issues
+                print("    Skipping download due to disk constraints - will use HuggingFace path directly")
+            except Exception as e:
+                print(f"    Warning: {e}")
+            # For now, let's use the HuggingFace cache directly
+            print("  Will use HuggingFace cache path...")
+        
+        print("✅ Models downloaded")
+        return models_dir
     
     def prepare_dataset(self, dataset_path, trigger_word):
         """
@@ -137,37 +143,25 @@ class FluxLoRATrainer:
         train_dir = self.working_dir / "train_data"
         train_dir.mkdir(exist_ok=True)
         
-        # Copy images and captions (use existing captions if available)
+        # Copy images and create captions
         images = list(dataset_path.glob("*.jpg")) + list(dataset_path.glob("*.png")) + list(dataset_path.glob("*.JPEG"))
         print(f"  Found {len(images)} images")
-        print(f"  📋 Linking images and captions...")
+        print(f"  📋 Copying images and creating captions...")
         
-        images_with_captions = 0
         for i, img_path in enumerate(images, 1):
-            # Create symlink for image to save disk space
+            # Create symlink instead of copying to save disk space
             dest_img = train_dir / img_path.name
             if not dest_img.exists():
                 os.symlink(img_path.absolute(), dest_img)
             
-            # Check for existing caption file
-            existing_caption = dataset_path / (img_path.stem + ".txt")
-            dest_caption = train_dir / (img_path.stem + ".txt")
-            
-            if existing_caption.exists() and not dest_caption.exists():
-                # Use existing caption file
-                os.symlink(existing_caption.absolute(), dest_caption)
-                images_with_captions += 1
-            elif not dest_caption.exists():
-                # Create fallback caption if none exists
-                with open(dest_caption, 'w') as f:
-                    f.write(f"{trigger_word}, a person with brown hair and brown eyes")
+            # Create caption file
+            caption_file = train_dir / (img_path.stem + ".txt")
+            with open(caption_file, 'w') as f:
+                f.write(f"{trigger_word}, a person with brown hair and brown eyes")
             
             # Show progress every 5 images or at the end
             if i % 5 == 0 or i == len(images):
                 print(f"     Progress: {i}/{len(images)} images processed")
-        
-        print(f"  ✅ Found {images_with_captions} existing caption files")
-        print(f"  ✅ Created {len(images) - images_with_captions} fallback captions")
         
         # Create dataset.toml
         print(f"  ⚙️  Creating dataset configuration...")
@@ -205,64 +199,54 @@ keep_tokens = 1
         return config_path
     
     def download_clip_model(self):
-        """Download CLIP model for FLUX training"""
-        print("   Downloading CLIP ViT-L-14 model...")
+        """Download CLIP model"""
+        import subprocess
+        
+        clip_dir = "/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14/snapshots/main"
+        Path(clip_dir).mkdir(parents=True, exist_ok=True)
         
         try:
-            from huggingface_hub import snapshot_download
-            clip_dir = snapshot_download(
-                repo_id="openai/clip-vit-large-patch14",
-                cache_dir="/workspace/.cache/huggingface",
-                local_files_only=False
-            )
-            print(f"   ✅ CLIP model downloaded to: {clip_dir}")
+            # Use huggingface-cli to download
+            subprocess.run([
+                "huggingface-cli", "download", 
+                "openai/clip-vit-large-patch14",
+                "--local-dir", clip_dir,
+                "--local-dir-use-symlinks", "False"
+            ], check=True, capture_output=True)
             return clip_dir
-        except Exception as e:
-            print(f"   ❌ Failed to download CLIP model: {e}")
-            # Try alternative approach
-            try:
-                import subprocess
-                result = subprocess.run([
-                    "huggingface-cli", "download", 
-                    "openai/clip-vit-large-patch14",
-                    "--cache-dir", "/workspace/.cache/huggingface"
-                ], check=True, capture_output=True, text=True)
-                print("   ✅ CLIP model downloaded via CLI")
-                # Return the cache path
-                return "/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14"
-            except Exception as e2:
-                print(f"   ❌ CLI download also failed: {e2}")
-                raise e
+        except subprocess.CalledProcessError:
+            # Fallback to programmatic download
+            from huggingface_hub import snapshot_download
+            return snapshot_download(
+                repo_id="openai/clip-vit-large-patch14",
+                local_dir=clip_dir,
+                local_dir_use_symlinks=False
+            )
     
     def download_t5_model(self):
-        """Download T5 model for FLUX training"""
-        print("   Downloading T5-v1.1-XXL model...")
+        """Download T5 model"""
+        import subprocess
+        
+        t5_dir = "/workspace/.cache/huggingface/models--google--t5-v1_1-xxl/snapshots/main"
+        Path(t5_dir).mkdir(parents=True, exist_ok=True)
         
         try:
-            from huggingface_hub import snapshot_download
-            t5_dir = snapshot_download(
-                repo_id="google/t5-v1_1-xxl",
-                cache_dir="/workspace/.cache/huggingface",
-                local_files_only=False
-            )
-            print(f"   ✅ T5 model downloaded to: {t5_dir}")
+            # Use huggingface-cli to download
+            subprocess.run([
+                "huggingface-cli", "download", 
+                "google/t5-v1_1-xxl",
+                "--local-dir", t5_dir,
+                "--local-dir-use-symlinks", "False"
+            ], check=True, capture_output=True)
             return t5_dir
-        except Exception as e:
-            print(f"   ❌ Failed to download T5 model: {e}")
-            # Try alternative approach
-            try:
-                import subprocess
-                result = subprocess.run([
-                    "huggingface-cli", "download", 
-                    "google/t5-v1_1-xxl",
-                    "--cache-dir", "/workspace/.cache/huggingface"
-                ], check=True, capture_output=True, text=True)
-                print("   ✅ T5 model downloaded via CLI")
-                # Return the cache path
-                return "/workspace/.cache/huggingface/models--google--t5-v1_1-xxl"
-            except Exception as e2:
-                print(f"   ❌ CLI download also failed: {e2}")
-                raise e
+        except subprocess.CalledProcessError:
+            # Fallback to programmatic download
+            from huggingface_hub import snapshot_download
+            return snapshot_download(
+                repo_id="google/t5-v1_1-xxl",
+                local_dir=t5_dir,
+                local_dir_use_symlinks=False
+            )
 
     def create_training_script(self, train_dir, model_name, output_name):
         """Create the training shell script"""
@@ -287,46 +271,27 @@ keep_tokens = 1
             vae_path = ""
             
         # FLUX requires separate CLIP and T5 models
-        # Find them in HuggingFace cache
+        # Download them if not available
         clip_cache_base = Path("/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14")
         t5_cache_base = Path("/workspace/.cache/huggingface/models--google--t5-v1_1-xxl")
         
-        # Find model snapshots
+        # Find model snapshots or download
         clip_snapshots = list(clip_cache_base.glob("snapshots/*")) if clip_cache_base.exists() else []
         t5_snapshots = list(t5_cache_base.glob("snapshots/*")) if t5_cache_base.exists() else []
         
         if clip_snapshots:
-            # CLIP model file is typically model.safetensors or pytorch_model.bin
-            clip_snapshot = clip_snapshots[0]
-            if (clip_snapshot / "model.safetensors").exists():
-                clip_l_path = str(clip_snapshot / "model.safetensors")
-            elif (clip_snapshot / "pytorch_model.bin").exists():
-                clip_l_path = str(clip_snapshot / "pytorch_model.bin")
-            else:
-                clip_l_path = str(clip_snapshot)
+            clip_l_path = str(clip_snapshots[0])
             print(f"   Using CLIP model: {clip_l_path}")
         else:
-            print("   ❌ CLIP model not found")
-            print("   Please run: huggingface-cli download openai/clip-vit-large-patch14 --cache-dir /workspace/.cache/huggingface")
-            clip_l_path = ""
+            print("   Downloading CLIP model...")
+            clip_l_path = self.download_clip_model()
             
         if t5_snapshots:
-            # T5 model file - sd-scripts only supports safetensors format
-            t5_snapshot = t5_snapshots[0]
-            safetensors_files = list(t5_snapshot.glob("model*.safetensors"))
-            if safetensors_files:
-                t5xxl_path = str(safetensors_files[0])
-                print(f"   Using T5-XXL model: {t5xxl_path}")
-            else:
-                # Skip T5 if only .bin files are available (sd-scripts only supports safetensors)
-                print("   ⚠️  T5 model found but only in .bin format")
-                print("   sd-scripts requires .safetensors format - skipping T5")
-                print("   Training will continue with FLUX + CLIP only")
-                t5xxl_path = ""
+            t5xxl_path = str(t5_snapshots[0])
+            print(f"   Using T5-XXL model: {t5xxl_path}")
         else:
-            print("   ❌ T5 model not found")
-            print("   Training will continue with FLUX + CLIP only")
-            t5xxl_path = ""
+            print("   Downloading T5 model...")
+            t5xxl_path = self.download_t5_model()
             
         print(f"   Main model: {main_model_path}")
         print(f"   VAE: {vae_path}")

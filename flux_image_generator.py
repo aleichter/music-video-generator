@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 from datetime import datetime
 from PIL import Image
-from diffusers import FluxPipeline
+from diffusers import DiffusionPipeline
 import json
 
 
@@ -46,17 +46,19 @@ class FluxImageGenerator:
             # Set cache directory to workspace
             os.environ['HF_HOME'] = '/workspace/.cache/huggingface'
             
-            self.pipeline = FluxPipeline.from_pretrained(
+            # Use auto-detection to load the appropriate pipeline class
+            self.pipeline = DiffusionPipeline.from_pretrained(
                 self.model_name,
-                torch_dtype=torch.float16,
-                low_cpu_mem_usage=True,
+                torch_dtype=torch.bfloat16,
+                device_map="auto",
                 use_safetensors=True,
-                cache_dir="/workspace/.cache/huggingface"
+                cache_dir="/workspace/.cache/huggingface",
+                custom_pipeline=None  # Let it auto-detect
             )
             
-            # Move to device and optimize
-            self.pipeline = self.pipeline.to(self.device)
-            self.pipeline.enable_model_cpu_offload()
+            # Enable memory efficient attention
+            if hasattr(self.pipeline, 'enable_model_cpu_offload'):
+                self.pipeline.enable_model_cpu_offload()
             
             print("✅ Pipeline loaded successfully")
     
@@ -266,14 +268,32 @@ if __name__ == "__main__":
     generator = FluxImageGenerator()
     
     # Generate a simple image
+    print("🎨 Testing basic FLUX image generation...")
     image = generator.generate_image(
         "a beautiful landscape with mountains and lakes",
-        output_path="test_image.png"
+        output_path="test_image.png",
+        width=512,
+        height=512,
+        num_inference_steps=20  # Reduced for faster testing
     )
     
-    # Generate with LoRA
-    generator.load_lora("path/to/lora.safetensors")
-    lora_image = generator.generate_image(
-        "anddrrew, professional portrait",
-        output_path="lora_test.png"
-    )
+    print("✅ Basic generation test complete!")
+    
+    # Only test LoRA if the file exists
+    lora_path = "outputs/anddrrew_lora_direct/anddrrew_lora_direct.safetensors"
+    if os.path.exists(lora_path):
+        print("🔧 Testing LoRA generation...")
+        generator.load_lora(lora_path)
+        lora_image = generator.generate_image(
+            "anddrrew, professional portrait",
+            output_path="lora_test.png",
+            width=512,
+            height=512,
+            num_inference_steps=20
+        )
+        print("✅ LoRA generation test complete!")
+    else:
+        print("⏳ LoRA file not found - skipping LoRA test (training may still be in progress)")
+    
+    # Cleanup
+    generator.cleanup()
