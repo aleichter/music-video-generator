@@ -65,10 +65,10 @@ class FluxLoRATrainer:
         if not self.sd_scripts_dir.exists():
             print("📥 Cloning Kohya sd-scripts...")
             subprocess.run([
-                "git", "clone", "https://github.com/kohya-ss/sd-scripts.git",
+                "git", "clone","-b","sd3", "https://github.com/kohya-ss/sd-scripts.git",
                 str(self.sd_scripts_dir)
             ], check=True)
-            
+
             # Install requirements
             print("📦 Installing requirements...")
             # Change to sd-scripts directory and install requirements
@@ -77,7 +77,7 @@ class FluxLoRATrainer:
             try:
                 os.chdir(str(self.sd_scripts_dir))
                 subprocess.run([
-                    "pip", "install", "-r", "requirements.txt"
+                    "pip", "install", "--no-cache-dir", "-r", "requirements.txt"
                 ], check=True)
             finally:
                 os.chdir(old_cwd)
@@ -101,7 +101,7 @@ class FluxLoRATrainer:
             print("❌ FLUX model not found - please ensure it's downloaded first")
             
         # Check and download CLIP model
-        clip_cache_base = Path("/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14")
+        clip_cache_base = Path("/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders")
         if not clip_cache_base.exists() or not list(clip_cache_base.glob("snapshots/*")):
             print("📥 Downloading CLIP model...")
             self.download_clip_model()
@@ -109,7 +109,7 @@ class FluxLoRATrainer:
             print("✅ CLIP model found in cache")
             
         # Check and download T5 model  
-        t5_cache_base = Path("/workspace/.cache/huggingface/models--google--t5-v1_1-xxl")
+        t5_cache_base = Path("/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders")
         if not t5_cache_base.exists() or not list(t5_cache_base.glob("snapshots/*")):
             print("📥 Downloading T5 model...")
             self.download_t5_model()
@@ -211,7 +211,7 @@ keep_tokens = 1
         try:
             from huggingface_hub import snapshot_download
             clip_dir = snapshot_download(
-                repo_id="openai/clip-vit-large-patch14",
+                repo_id="comfyanonymous/flux_text_encoders",
                 cache_dir="/workspace/.cache/huggingface",
                 local_files_only=False
             )
@@ -224,12 +224,12 @@ keep_tokens = 1
                 import subprocess
                 result = subprocess.run([
                     "huggingface-cli", "download", 
-                    "openai/clip-vit-large-patch14",
+                    "comfyanonymous/flux_text_encoders",
                     "--cache-dir", "/workspace/.cache/huggingface"
                 ], check=True, capture_output=True, text=True)
                 print("   ✅ CLIP model downloaded via CLI")
                 # Return the cache path
-                return "/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14"
+                return "/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders"
             except Exception as e2:
                 print(f"   ❌ CLI download also failed: {e2}")
                 raise e
@@ -241,7 +241,7 @@ keep_tokens = 1
         try:
             from huggingface_hub import snapshot_download
             t5_dir = snapshot_download(
-                repo_id="google/t5-v1_1-xxl",
+                repo_id="comfyanonymous/flux_text_encoders",
                 cache_dir="/workspace/.cache/huggingface",
                 local_files_only=False
             )
@@ -254,12 +254,12 @@ keep_tokens = 1
                 import subprocess
                 result = subprocess.run([
                     "huggingface-cli", "download", 
-                    "google/t5-v1_1-xxl",
+                    "comfyanonymous/flux_text_encoders",
                     "--cache-dir", "/workspace/.cache/huggingface"
                 ], check=True, capture_output=True, text=True)
                 print("   ✅ T5 model downloaded via CLI")
                 # Return the cache path
-                return "/workspace/.cache/huggingface/models--google--t5-v1_1-xxl"
+                return "/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders"
             except Exception as e2:
                 print(f"   ❌ CLI download also failed: {e2}")
                 raise e
@@ -288,8 +288,8 @@ keep_tokens = 1
             
         # FLUX requires separate CLIP and T5 models
         # Find them in HuggingFace cache
-        clip_cache_base = Path("/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14")
-        t5_cache_base = Path("/workspace/.cache/huggingface/models--google--t5-v1_1-xxl")
+        clip_cache_base = Path("/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders")
+        t5_cache_base = Path("/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders")
         
         # Find model snapshots
         clip_snapshots = list(clip_cache_base.glob("snapshots/*")) if clip_cache_base.exists() else []
@@ -298,8 +298,8 @@ keep_tokens = 1
         if clip_snapshots:
             # CLIP model file is typically model.safetensors or pytorch_model.bin
             clip_snapshot = clip_snapshots[0]
-            if (clip_snapshot / "model.safetensors").exists():
-                clip_l_path = str(clip_snapshot / "model.safetensors")
+            if (clip_snapshot / "clip_l.safetensors").exists():
+                clip_l_path = str(clip_snapshot / "clip_l.safetensors")
             elif (clip_snapshot / "pytorch_model.bin").exists():
                 clip_l_path = str(clip_snapshot / "pytorch_model.bin")
             else:
@@ -307,13 +307,13 @@ keep_tokens = 1
             print(f"   Using CLIP model: {clip_l_path}")
         else:
             print("   ❌ CLIP model not found")
-            print("   Please run: huggingface-cli download openai/clip-vit-large-patch14 --cache-dir /workspace/.cache/huggingface")
+            print("   Please run: huggingface-cli download comfyanonymous/flux_text_encoders --cache-dir /workspace/.cache/huggingface")
             clip_l_path = ""
             
         if t5_snapshots:
             # T5 model file - sd-scripts only supports safetensors format
             t5_snapshot = t5_snapshots[0]
-            safetensors_files = list(t5_snapshot.glob("model*.safetensors"))
+            safetensors_files = list(t5_snapshot.glob("t5xxl_fp16*.safetensors"))
             if safetensors_files:
                 t5xxl_path = str(safetensors_files[0])
                 print(f"   Using T5-XXL model: {t5xxl_path}")
@@ -374,7 +374,6 @@ python flux_train_network.py \\
   --cache_latents \\
   --cache_latents_to_disk \\
   --gradient_checkpointing \\
-  --fp8_base \\
   --highvram \\
   --max_grad_norm={self.config['max_grad_norm']} \\
   --logging_dir="{output_abs}/logs" \\

@@ -7,10 +7,10 @@ export HF_HUB_CACHE=/workspace/.cache/huggingface
 cd "sd-scripts"
 
 python flux_train_network.py \
-  --pretrained_model_name_or_path="/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev/snapshots/main" \
-  --clip_l="/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14/snapshots/32bd64288804d66eefd0ccbe215aa642df71cc41/model.safetensors" \
-   \
-  --ae="/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev/snapshots/main/vae/diffusion_pytorch_model.safetensors" \
+  --pretrained_model_name_or_path="/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev/snapshots/3de623fc3c33e44ffbe2bad470d0f45bccf2eb21" \
+  --clip_l="/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders/snapshots/6af2a98e3f615bdfa612fbd85da93d1ed5f69ef5/clip_l.safetensors" \
+  --t5xxl="/workspace/.cache/huggingface/models--comfyanonymous--flux_text_encoders/snapshots/6af2a98e3f615bdfa612fbd85da93d1ed5f69ef5/t5xxl_fp16.safetensors" \
+  --ae="/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev/snapshots/3de623fc3c33e44ffbe2bad470d0f45bccf2eb21/vae/diffusion_pytorch_model.safetensors" \
   --dataset_config="/workspace/music-video-generator/training_workspace/dataset.toml" \
   --output_dir="/workspace/music-video-generator/outputs/anddrrew_lora_v1" \
   --output_name="anddrrew_lora_v1" \
@@ -35,7 +35,6 @@ python flux_train_network.py \
   --cache_latents \
   --cache_latents_to_disk \
   --gradient_checkpointing \
-  --fp8_base \
   --highvram \
   --max_grad_norm=1.0 \
   --logging_dir="/workspace/music-video-generator/outputs/anddrrew_lora_v1/logs" \

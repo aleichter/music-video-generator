@@ -59,6 +59,7 @@ class FluxImageGenerator:
                     torch_dtype=torch.bfloat16,
                     use_safetensors=True,
                     cache_dir="/workspace/.cache/huggingface",
+                    revision="main",  # Use the main branch
                     local_files_only=False,  # Force local only, no downloads
                 ).to(self.device)
                 print("✅ Pipeline loaded successfully from local cache")
@@ -86,12 +87,12 @@ class FluxImageGenerator:
         """
         if not os.path.exists(lora_path):
             raise FileNotFoundError(f"LoRA file not found: {lora_path}")
-        
+
         # Load pipeline if not already loaded
         self.load_pipeline()
-        
+
         print(f"🔧 Loading LoRA: {lora_path}")
-        
+
         try:
             # Load with automatic adapter inference (should work with sd-scripts format)
             self.pipeline.load_lora_weights(
@@ -99,7 +100,7 @@ class FluxImageGenerator:
                 # Try to use the correct adapter name
                 adapter_name="default"
             )
-            
+
             # Apply scale to all components
             if hasattr(self.pipeline, 'set_adapters') and hasattr(self.pipeline, 'set_adapter_scale'):
                 self.pipeline.set_adapters("default")
@@ -107,28 +108,38 @@ class FluxImageGenerator:
             elif hasattr(self.pipeline, 'fuse_lora'):
                 # Alternative: fuse the LoRA with specific scale
                 self.pipeline.fuse_lora(lora_scale=lora_scale)
-            
+
             print(f"✅ LoRA loaded with scale {lora_scale}")
             print("   Note: This LoRA contains both text encoder and transformer weights")
-            
+
         except Exception as e:
             print(f"   Standard loading failed: {e}")
             print("   Trying alternative loading method...")
-            
+
+            # Try to print incompatible keys if available
+            if hasattr(e, 'args') and e.args and isinstance(e.args[0], str) and 'Incompatible keys' in e.args[0]:
+                print("\n[DEBUG] Incompatible keys detected during LoRA loading:")
+                print(e.args[0])
+                print("\nPlease ensure your LoRA was trained for this base model and with the same architecture.")
+
             try:
                 # Try loading without adapter name
                 self.pipeline.load_lora_weights(lora_path)
-                
+
                 # Set scale for specific components if possible
                 if hasattr(self.pipeline, 'set_lora_scale'):
                     self.pipeline.set_lora_scale(lora_scale)
-                
+
                 print(f"✅ LoRA loaded with alternative method, scale {lora_scale}")
-                
+
             except Exception as e2:
                 print(f"   All loading methods failed. Last error: {e2}")
+                if hasattr(e2, 'args') and e2.args and isinstance(e2.args[0], str) and 'Incompatible keys' in e2.args[0]:
+                    print("\n[DEBUG] Incompatible keys detected during alternative LoRA loading:")
+                    print(e2.args[0])
+                    print("\nPlease ensure your LoRA was trained for this base model and with the same architecture.")
                 raise e2
-        
+
         self.loaded_lora_path = lora_path
     
     def unload_lora(self):
@@ -345,7 +356,7 @@ if __name__ == "__main__":
         print("🔧 Testing LoRA generation...")
         generator.load_lora(lora_path)
         lora_image = generator.generate_image(
-            "anddrrew, professional portrait",
+            "gwen tennyson (/Ben10)/,(ultra HD quality details), bright orange hair, short hair, (green eyes)", #"anddrrew, professional portrait",
             output_path="lora_test.png",
             width=512,
             height=512,
