@@ -9,8 +9,14 @@ import os
 from pathlib import Path
 from datetime import datetime
 from PIL import Image
-from diffusers import DiffusionPipeline
 import json
+
+# Import FluxPipeline directly to avoid import issues
+try:
+    from diffusers import FluxPipeline
+except ImportError:
+    # Fallback if FluxPipeline is not available
+    from diffusers import DiffusionPipeline as FluxPipeline
 
 
 class FluxImageGenerator:
@@ -21,7 +27,7 @@ class FluxImageGenerator:
         Initialize the FLUX image generator
         
         Args:
-            model_name: Base FLUX model to use
+            model_name: HuggingFace model name (uses local cache structure)
             device: Device to run inference on
         """
         self.model_name = model_name
@@ -31,40 +37,48 @@ class FluxImageGenerator:
         
         # Default generation settings
         self.default_settings = {
-            "num_inference_steps": 28,
-            "guidance_scale": 3.5,
+            "num_inference_steps": 50,  # FLUX works better with more steps
+            "guidance_scale": 7.5,     # Higher guidance for FLUX
             "width": 1024,
             "height": 1024,
             "max_sequence_length": 512
         }
     
     def load_pipeline(self):
-        """Load the FLUX pipeline"""
+        """Load the FLUX pipeline from local cache structure"""
         if self.pipeline is None:
             print(f"📥 Loading FLUX pipeline: {self.model_name}")
             
             # Set cache directory to workspace
             os.environ['HF_HOME'] = '/workspace/.cache/huggingface'
             
-            # Use auto-detection to load the appropriate pipeline class
-            self.pipeline = DiffusionPipeline.from_pretrained(
-                self.model_name,
-                torch_dtype=torch.bfloat16,
-                device_map="auto",
-                use_safetensors=True,
-                cache_dir="/workspace/.cache/huggingface",
-                custom_pipeline=None  # Let it auto-detect
-            )
+            # Load the pipeline - it will use the local cache structure we set up
+            try:
+                self.pipeline = FluxPipeline.from_pretrained(
+                    self.model_name,
+                    torch_dtype=torch.bfloat16,
+                    use_safetensors=True,
+                    cache_dir="/workspace/.cache/huggingface",
+                    local_files_only=False,  # Force local only, no downloads
+                ).to(self.device)
+                print("✅ Pipeline loaded successfully from local cache")
+                
+            except Exception as e:
+                raise FileNotFoundError(
+                    f"Failed to load FLUX pipeline from local cache.\n"
+                    f"Error: {e}\n\n"
+                    f"Make sure you have run the setup_local_models.py script first to create\n"
+                    f"the proper HuggingFace cache structure with your model files.\n"
+                    f"Run: python setup_local_models.py"
+                )
             
             # Enable memory efficient attention
             if hasattr(self.pipeline, 'enable_model_cpu_offload'):
                 self.pipeline.enable_model_cpu_offload()
-            
-            print("✅ Pipeline loaded successfully")
     
     def load_lora(self, lora_path, lora_scale=1.0):
         """
-        Load a LoRA model
+        Load a LoRA model with proper key mapping for FLUX
         
         Args:
             lora_path: Path to the LoRA safetensors file
@@ -77,22 +91,69 @@ class FluxImageGenerator:
         self.load_pipeline()
         
         print(f"🔧 Loading LoRA: {lora_path}")
-        self.pipeline.load_lora_weights(lora_path)
         
-        # Set LoRA scale if supported
-        if hasattr(self.pipeline, 'set_lora_scale'):
-            self.pipeline.set_lora_scale(lora_scale)
+        try:
+            # Load with automatic adapter inference (should work with sd-scripts format)
+            self.pipeline.load_lora_weights(
+                lora_path,
+                # Try to use the correct adapter name
+                adapter_name="default"
+            )
+            
+            # Apply scale to all components
+            if hasattr(self.pipeline, 'set_adapters') and hasattr(self.pipeline, 'set_adapter_scale'):
+                self.pipeline.set_adapters("default")
+                self.pipeline.set_adapter_scale(lora_scale)
+            elif hasattr(self.pipeline, 'fuse_lora'):
+                # Alternative: fuse the LoRA with specific scale
+                self.pipeline.fuse_lora(lora_scale=lora_scale)
+            
+            print(f"✅ LoRA loaded with scale {lora_scale}")
+            print("   Note: This LoRA contains both text encoder and transformer weights")
+            
+        except Exception as e:
+            print(f"   Standard loading failed: {e}")
+            print("   Trying alternative loading method...")
+            
+            try:
+                # Try loading without adapter name
+                self.pipeline.load_lora_weights(lora_path)
+                
+                # Set scale for specific components if possible
+                if hasattr(self.pipeline, 'set_lora_scale'):
+                    self.pipeline.set_lora_scale(lora_scale)
+                
+                print(f"✅ LoRA loaded with alternative method, scale {lora_scale}")
+                
+            except Exception as e2:
+                print(f"   All loading methods failed. Last error: {e2}")
+                raise e2
         
         self.loaded_lora_path = lora_path
-        print(f"✅ LoRA loaded with scale {lora_scale}")
     
     def unload_lora(self):
         """Unload the currently loaded LoRA"""
-        if self.loaded_lora_path and hasattr(self.pipeline, 'unload_lora_weights'):
+        if self.loaded_lora_path:
             print("🔄 Unloading LoRA...")
-            self.pipeline.unload_lora_weights()
-            self.loaded_lora_path = None
-            print("✅ LoRA unloaded")
+            
+            try:
+                # Try multiple unloading methods
+                if hasattr(self.pipeline, 'unload_lora_weights'):
+                    self.pipeline.unload_lora_weights()
+                elif hasattr(self.pipeline, 'disable_lora'):
+                    self.pipeline.disable_lora()
+                elif hasattr(self.pipeline, 'set_adapters'):
+                    self.pipeline.set_adapters(None)
+                elif hasattr(self.pipeline, 'unfuse_lora'):
+                    self.pipeline.unfuse_lora()
+                
+                self.loaded_lora_path = None
+                print("✅ LoRA unloaded")
+                
+            except Exception as e:
+                print(f"   Warning: Error unloading LoRA: {e}")
+                # Force unload by recreating pipeline if necessary
+                self.loaded_lora_path = None
     
     def generate_image(self, prompt, negative_prompt="", output_path=None, **kwargs):
         """
@@ -124,10 +185,9 @@ class FluxImageGenerator:
             print(f"   Seed: {kwargs['seed']}")
         
         # Generate image
-        with torch.autocast(self.device):
+        with torch.no_grad():
             result = self.pipeline(
                 prompt=prompt,
-                negative_prompt=negative_prompt if negative_prompt else None,
                 num_inference_steps=settings['num_inference_steps'],
                 guidance_scale=settings['guidance_scale'],
                 width=settings['width'],

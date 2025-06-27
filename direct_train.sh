@@ -8,10 +8,10 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 cd sd-scripts
 
 python flux_train_network.py \
-  --pretrained_model_name_or_path="/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev/snapshots/main/flux1-dev.safetensors" \
-  --clip_l="/workspace/.cache/huggingface/models--openai--clip-vit-large-patch14/snapshots/32bd64288804d66eefd0ccbe215aa642df71cc41/model.safetensors" \
-  --t5xxl="/workspace/.cache/huggingface/models--mcmonkey--google_t5-v1_1-xxl_encoderonly/snapshots/b13e9156c8ea5d48d245929610e7e4ea366c9620/model.safetensors" \
-  --ae="/workspace/.cache/huggingface/models--black-forest-labs--FLUX.1-dev/snapshots/main/ae.safetensors" \
+  --pretrained_model_name_or_path="/workspace/models/flux1-dev.safetensors" \
+  --clip_l="/workspace/models/clip.safetensors" \
+  --t5xxl="/workspace/models/t5xxl_fp8_e4m3fn_scaled.safetensors" \
+  --ae="/workspace/models/ae.safetensors" \
   --dataset_config="/workspace/music-video-generator/training_workspace/dataset.toml" \
   --output_dir="/workspace/music-video-generator/outputs/anddrrew_lora_direct" \
   --output_name="anddrrew_lora_direct" \
