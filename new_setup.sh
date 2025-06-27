@@ -12,7 +12,7 @@ export HF_HUB_CACHE=/workspace/.cache/huggingface
 export HF_DATASETS_CACHE=/workspace/.cache/huggingface/datasets
 export HF_METRICS_CACHE=/workspace/.cache/huggingface/metrics
 
-huggingface-cli login --token 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
+huggingface-cli login 
 huggingface-cli download comfyanonymous/flux_text_encoders --revision main
 huggingface-cli download black-forest-labs/FLUX.1-dev --revision main
 
