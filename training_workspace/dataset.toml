@@ -4,11 +4,11 @@ caption_extension = ".txt"
 keep_tokens = 1
 
 [[datasets]]
-resolution = 512
+resolution = 1024
 batch_size = 1
 keep_tokens = 1
 
   [[datasets.subsets]]
   image_dir = "/workspace/music-video-generator/training_workspace/train_data"
   class_tokens = "anddrrew"
-  num_repeats = 10
+  num_repeats = 20

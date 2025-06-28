@@ -27,30 +27,28 @@ class FluxLoRATrainer:
         self.output_dir = Path(output_dir)
         self.working_dir = Path(working_dir)
         
-        # Use existing sd-scripts or create in shared location
-        existing_sd_scripts = Path("working/sd-scripts")
-        if existing_sd_scripts.exists():
-            self.sd_scripts_dir = existing_sd_scripts
-        else:
-            self.sd_scripts_dir = Path("sd-scripts")
+        # Use existing sd-scripts or create in current directory
+        self.sd_scripts_dir = Path("/workspace/music-video-generator/sd-scripts")
         
-        # Training configuration - Optimized for FLUX LoRA
+        # Training configuration - Optimized for FLUX LoRA with stability fixes
         self.config = {
             "model_name": "black-forest-labs/FLUX.1-dev",
-            "learning_rate": 1e-4,  # Lower learning rate for stability
+            "learning_rate": 1e-4,  # Standard fluxgym learning rate
             "train_batch_size": 1,
-            "max_train_epochs": 6,  # More epochs for better learning
+            "max_train_epochs": 6,
             "save_every_n_epochs": 2,
             "mixed_precision": "bf16",
             "gradient_checkpointing": True,
             "network_module": "networks.lora_flux",
-            "network_dim": 16,  # Higher dim for FLUX (was 4)
-            "network_alpha": 16,  # Higher alpha for FLUX (was 4)
-            "optimizer_type": "adamw8bit",
+            "network_dim": 16,  # Standard fluxgym dim
+            "network_alpha": 16,  # Standard fluxgym alpha
+            "optimizer_type": "AdamW",
             "lr_scheduler": "cosine",
             "lr_warmup_steps": 100,
             "clip_skip": 1,
-            "max_grad_norm": 1.0
+            "max_grad_norm": 1.0,  # Standard gradient clipping
+            # Simplified FLUX settings - let sd-scripts handle defaults
+            "guidance_scale": 1.0,  # No guidance for training stability
         }
     
     def setup_environment(self):
@@ -336,16 +334,20 @@ keep_tokens = 1
         t5_arg = f'--t5xxl="{t5xxl_path}"' if t5xxl_path else ""
         vae_arg = f'--ae="{vae_path}"' if vae_path and Path(vae_path).exists() else ""
         
-        # Set environment variables for cache
+        # Set environment variables for cache and PyTorch optimizations
         script_content = f"""#!/bin/bash
+
+# Activate virtual environment
+source /workspace/music-video-generator/venv1/bin/activate
 
 export HF_HOME=/workspace/.cache/huggingface
 export TRANSFORMERS_CACHE=/workspace/.cache/huggingface
 export HF_HUB_CACHE=/workspace/.cache/huggingface
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
 
 cd "{self.sd_scripts_dir}"
 
-python flux_train_network.py \\
+/workspace/music-video-generator/venv1/bin/python flux_train_network.py \\
   --pretrained_model_name_or_path="{main_model_path}" \\
   {clip_arg} \\
   {t5_arg} \\
@@ -368,14 +370,15 @@ python flux_train_network.py \\
   --network_module={self.config['network_module']} \\
   --network_dim={self.config['network_dim']} \\
   --network_alpha={self.config['network_alpha']} \\
-  --text_encoder_lr=5e-5 \\
+  --text_encoder_lr={self.config['learning_rate']} \\
   --unet_lr={self.config['learning_rate']} \\
   --network_args "preset=full" "decompose_both=False" "use_tucker=False" \\
   --cache_latents \\
   --cache_latents_to_disk \\
   --gradient_checkpointing \\
-  --highvram \\
+  --no_half_vae \\
   --max_grad_norm={self.config['max_grad_norm']} \\
+  --guidance_scale={self.config['guidance_scale']} \\
   --logging_dir="{output_abs}/logs" \\
   --log_with=tensorboard \\
   --log_prefix={output_name}

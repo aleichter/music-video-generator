@@ -1,1 +1,1 @@
-anddrrew, a person with brown hair and brown eyes
+/workspace/music-video-generator/dataset/anddrrew/IMG_0199.txt
