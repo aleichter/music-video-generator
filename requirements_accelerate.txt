@@ -1,0 +1,76 @@
+# Core FLUX LoRA Training Requirements (Accelerate Implementation)
+# Based on fluxgym requirements.txt but excluding UI components
+
+# Essential deep learning frameworks
+torch>=2.1.0
+torchvision
+torchaudio
+accelerate>=0.33.0
+transformers>=4.44.0
+diffusers>=0.25.0
+safetensors>=0.4.4
+
+# HuggingFace ecosystem
+huggingface_hub>=0.24.5
+peft
+sentencepiece
+protobuf
+
+# Training optimizers and schedulers
+bitsandbytes>=0.44.0
+prodigyopt
+optimum-quanto
+
+# Computer vision and image processing
+einops>=0.7.0
+opencv-python>=4.8.1.78
+Pillow>=8.0.0  # Image processing for caption generation
+imagesize>=1.4.1
+
+# Configuration and data handling
+toml>=0.10.2
+pyyaml
+omegaconf
+voluptuous>=0.13.1
+
+# Training utilities
+tensorboard
+kornia
+invisible-watermark
+
+# LoRA specific
+lycoris-lora>=1.8.3
+
+# Metrics and evaluation
+lpips
+pytorch_fid
+
+# Memory optimization
+hf_transfer
+
+# Text processing
+ftfy>=6.1.1
+
+# Utility libraries
+python-slugify
+flatten_json
+python-dotenv
+
+# Vision models (required for Florence2 captioning)
+timm>=0.9.0
+
+# Additional dependencies for InternVL
+transformers_stream_generator  # Required for InternVL models
+
+# Removed UI-specific dependencies:
+# - gradio (web UI framework)
+# - gradio_logsview (custom gradio component)
+# - controlnet_aux (likely for UI features)
+# - albumentations (image augmentation, might be used in UI)
+# - open_clip_torch (CLIP models, might be used for captioning in UI)
+# - k-diffusion (alternative diffusion implementation)
+# - oyaml (YAML with ordered dicts, likely for UI config)
+
+# Note: Some packages like albumentations, open_clip_torch might be needed
+# for training but are often used in UI for captioning/preprocessing features.
+# Add them back if needed for your specific training pipeline.
